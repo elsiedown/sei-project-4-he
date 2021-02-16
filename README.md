@@ -103,13 +103,13 @@ Profile page:
 ![](readme-screenshots/profile-page.png)
 Manage properties (both owned and favourited):
 ![](readme-screenshots/profile-page-two.png)
-![](readme-screenshots/profile-page-three.png)
+<!-- ![](readme-screenshots/profile-page-three.png) -->
 
 Manage property swap requests (both sent and recieved) :
 ![](readme-screenshots/profile-page-four.png)
 
-Modal pop-up alerts:
-![](readme-screenshots/modal-popup.png)
+<!-- Modal pop-up alerts:
+![](readme-screenshots/modal-popup.png) -->
 
 
 
