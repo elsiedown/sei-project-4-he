@@ -15,7 +15,7 @@ This was my fourth and final project on General Assembly’s Software Engineerin
 
 We were given just over a week to build a full-stack application, using a Python Django API and Django REST Framework to serve data from a PostgreSQL database whilst consuming this API with a separate front-end, built with React. 
 
-Our idea was Sharebnb.  Taking inspiration from the outrageous and luxurious properties displayed on TV series such as Selling Sunset, whilst combining this with the concept and styling behind websites suchas Airbnb, Sharebnb is a platform where users can swap houses with other users. Users can advertise their house for swapping, as well as explore and make requests on other houses, add properties to their favourites, and leave reviews on properties they have stayed in.
+Our idea was Sharebnb.  Taking inspiration from the outrageous and luxurious properties presented on TV series such as Selling Sunset, whilst combining this with the concept and styling behind websites suchas Airbnb -  Sharebnb is a platform where users can swap houses with other users. Users can advertise their house for swapping, as well as explore and make requests on other houses, add properties to their favourites, and leave reviews on properties they have stayed in.
 
 This Readme will outline the approach we took and the wins and challenges that I encountered along the way.
 
@@ -66,9 +66,9 @@ This Readme will outline the approach we took and the wins and challenges that I
 ## Features
 
 * Landing Page
-* Sign up page and Login page
-* Index of all Properties - in list or map view
-* Filter by Location - City, Continent or Country
+* Sign up page and login page
+* Index of all properties (list or map view)
+* Filter properties by City, Continent or Country
 * Detail view for each Property
 * Login & Logout with restricted visibility for logged in users
   * Create, edit and delete property
@@ -76,9 +76,41 @@ This Readme will outline the approach we took and the wins and challenges that I
   * Ability to leave reviews, add to favourites
   * Ability to follow other users
   * User profile - with panel to manage requests as well as created. Properties
-  * View ther user profile
+  * View the other user profile
 
 ## The Site:
+
+Login page:
+![](readme-screenshots/login-page.png)
+Sign up and register your property pages:
+Select relevant property types when registering your property:
+![](readme-screenshots/property-types.png)
+Homepage:
+![](readme-screenshots/landing-page.png)
+Featured properties:
+![](readme-screenshots/landing-page-two.png)
+Explore Properties - Index of all properties with recently added properties:
+![](readme-screenshots/property-index.png)
+Search for properties (by City, Country or Continent):
+![](readme-screenshots/search-properties.png)
+Find properties on map view:
+![](readme-screenshots/property-map.png)
+Detail page for each property:
+![](readme-screenshots/property-showpage.png)
+Send a property request: 
+![](readme-screenshots/property-request.png)
+Profile page: 
+![](readme-screenshots/profile-page.png)
+Manage properties (both owned and favourited):
+![](readme-screenshots/profile-page-two.png)
+![](readme-screenshots/profile-page-three.png)
+
+Manage property swap requests (both sent and recieved) :
+![](readme-screenshots/profile-page-four.png)
+
+Modal pop-up alerts:
+![](readme-screenshots/modal-popup.png)
+
 
 
 ## Approach Taken
