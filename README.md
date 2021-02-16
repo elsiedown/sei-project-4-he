@@ -1,8 +1,8 @@
 # Project 4 - Sharebnb
 
-*## GA SEI Project 4: Full Stack Python & Django Application*
+**GA SEI Project 4: Full Stack Python & Django Application**
 
-You can find a hosted version of our app here :  [sharebnb](https://shareb-n-b.herokuapp.com/) (deployed using Heroku)
+You can find a hosted version of our app here :  [Sharebnb](https://shareb-n-b.herokuapp.com/) (deployed using Heroku)
 
 To access all available features, please sign up for an account or use the following details:
 
@@ -37,7 +37,7 @@ This Readme will outline the approach we took and the wins and challenges that I
 
 ## Timeframe and Technologies Used
 
-***Timeframe***: 1 week in a pair
+**Timeframe**: 1 week in a pair
 
 * React.js
 * JavaScript (ES6)
@@ -76,20 +76,20 @@ This Readme will outline the approach we took and the wins and challenges that I
 
 ## Approach Taken
 
-***Planning***
+**Planning**
 
 
 
-***Development***
+**Development**
 
 
 
-***Back-End***
+**Back-End**
 
 
 
 
-***Front-End***
+**Front-End**
 
 
 
