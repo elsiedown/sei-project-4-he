@@ -80,11 +80,11 @@ This Readme will outline the approach we took and the wins and challenges that I
 
 ## The Site:
 
-Login page:
+<!-- Login page:
 ![](readme-screenshots/login-page.png)
 Sign up and register your property pages:
 Select relevant property types when registering your property:
-![](readme-screenshots/property-types.png)
+![](readme-screenshots/property-types.png) -->
 Homepage:
 ![](readme-screenshots/landing-page.png)
 Featured properties:
