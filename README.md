@@ -1,6 +1,6 @@
 # Project 4 - Sharebnb
 
-**GA SEI Project 4: Full Stack Python & Django Application**
+**General Assembly SEI Project 4: Full Stack Python & Django Application**
 
 You can find a hosted version of our app here :  [Sharebnb](https://shareb-n-b.herokuapp.com/) (deployed using Heroku)
 
@@ -27,7 +27,7 @@ This Readme will outline the approach we took and the wins and challenges that I
 * **Build a full-stack application** by making your own backend and your own front-end
 * **Use a Python Django API** using Django REST Framework to serve your data from a Postgres database
 * **Consume your API with a separate front-end** built with React
-* **Be a complete product* which most likely means multiple relationships and CRUD functionality for at least a couple of models
+* **Be a complete product** which most likely means multiple relationships and CRUD functionality for at least a couple of models
 * **Implement thoughtful user stories/wireframes** that are significant enough to help you know which features are core MVP and which you can cut
 * **Have a visually impressive design** to kick your portfolio up a notch and have something to wow future clients & employers. **ALLOW** time for this.
 * **Be deployed online** so it’s publicly accessible.
@@ -119,12 +119,12 @@ Manage property swap requests (both sent and recieved) :
 
 * Having learnt the importance of thorough planning in previous projects, we spent the first 24 hours coming up with a concrete plan for our project - confirming how we wanted the site to look and what functionality we wanted to build. 
 * Having both used Trello in Project 3, we used this as our main focal point of keeping track of tasks that we needed to carry out and dividing up the work. 
-![](Screenshot%202021-02-16%20at%2012.32.59.png)
+![](readme-screenshots/trello-board.png)
 * We came up with detailed wireframes as well as an ERD Diagram so that we were both clear on what entities we were going to include within our database and the relationships between those entities. This really helped when it came to building our models in the back-end.
-![](ERD.png)
+![](readme-screenshots/ERD.png)
 
 
-**Development**
+**Development:**
 
 **Back-End**
 
@@ -157,7 +157,7 @@ class Review(models.Model):
 
 ```
 
-* We built out the serialisers for each model as we went, before moving onto setting up REST Framework - and the different get, put, post, delete requests for each entity.  We also worked don user authentication to limit certain requests to logged-in users and owners of certain properties / reviews:
+* We built out the serializers for each model as we went, before moving onto setting up REST Framework - and the different get, put, post, delete requests for each entity.  We also worked don user authentication to limit certain requests to logged-in users and owners of certain properties / reviews:
 
 ```
 class PropertyListView(APIView):
@@ -188,7 +188,7 @@ class PropertyListView(APIView):
 
 ## Challenges
 
-* A main challenge for me was getting my head around the user of serializers in the back-end and using these in a way so that I had the correct output in the front-end.  Whilst I was setting up the ‘house swap requests’ in the front-end I kept coming across instances where I was not receiving the correct data in the requests (eg. The details of the owner of the request were not displaying). I then had to go back to the back-end and alter the serialisers, adding in nested serialisers in a few cases. In future, I would clearly think out what data would be attached to each model and what serialisers were necessary so that the correct information would be returned and to avoid having to alter the back-end later down the line.
+* A main challenge for me was getting my head around the user of serializers in the back-end and using these in a way so that I had the correct output in the front-end.  Whilst I was setting up the ‘house swap requests’ in the front-end I kept coming across instances where I was not receiving the correct data in the requests (eg. The details of the owner of the request were not displaying). I then had to go back to the back-end and alter the serializers, adding in nested serializers in a few cases. In future, I would clearly think out what data would be attached to each model and what serializers were necessary so that the correct information would be returned and to avoid having to alter the back-end later down the line.
 
 ```
 from rest_framework import serializers
@@ -196,8 +196,6 @@ from ..models import Property
 
 
 class PropertySerializer(serializers.ModelSerializer):
-
-  
     class Meta:
         model = Property
         fields = '__all__'
@@ -215,8 +213,9 @@ class NestedPropertySerializer(serializers.ModelSerializer):
 * Considering we had only been learning Python and Django for just a week, I was impressed with the fact that we were able to build a full-stack app which was based in Python and Django. Overall, we were really happy with the amount of functionality that we achieved and how our site looked.
 * I was happy with how I carried forward my understanding of how relationships were established from my previous projects, and adapted this knowledge for the Python and Django back-end. I was pretty happy with how the 'house swap requests' worked both in the back-end and front-end.
 
-## What I learned
-* As this was my first project using Python and Django, I learned a huge amount. It was interesting to translate my knowledge and understanding of JavaScript and put into practice everything we had learned over the duration of the course in general.
+## What I Learned
+* As this was my first project using Python and Django, I learned a huge amount. It was interesting to translate my knowledge and understanding of JavaScript and put into practice everything we had learned over the duration of the course in general. 
+* I enjoyed using Django - it was interesting to compare how it worked to setting up an API with Express. The error handling was way easier to set up and I enjoyed learning the benefits of using different frameworks.
 * It was a great chance to further my pair-programming skills and I loved working a pair. I took what I had learned from the previous group projects (both failures and successes) and applied those learnings to ths project, which I believe resulted in a relatively smooth and successful project.
 
 ## Future Features
