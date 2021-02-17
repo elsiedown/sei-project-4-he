@@ -105,8 +105,8 @@ Manage properties (both owned and favourited):
 ![](readme-screenshots/profile-page-two.png)
 <!-- ![](readme-screenshots/profile-page-three.png) -->
 
-Manage property swap requests (both sent and recieved) :
-![](readme-screenshots/profile-page-four.png)
+<!-- Manage property swap requests (both sent and recieved) :
+![](readme-screenshots/profile-page-four.png) -->
 
 <!-- Modal pop-up alerts:
 ![](readme-screenshots/modal-popup.png) -->
@@ -229,7 +229,7 @@ class PropertyListView(APIView):
 ```
 
 * Another main focus of mine was the profile page. I wanted to mimic a typical social media profile page - showing the number of followers, following and properties. I was happy with the overall styling and finish of the profile page.
-*  In particular, I spent a lot of time working on the house swap requests on the profile page which proved to be quite complex, especially the accepting or rejecting of the requests. I did not realise that this would involve setting up another 'put' request in the back-end in order to ‘update’ the request that had been created.  I also had to add a Nested Serialiser for the offer in order to change the boolean 'is_accepted' to true.
+*  In particular, I spent a lot of time working on the house swap requests on the profile page which proved to be quite complex, especially the accepting or rejecting of the requests. I did not realise that this would involve setting up another 'put' request in the back-end in order to update the request that had been created.  I also had to add a Nested Serialiser for the offer in order to change the boolean 'is_accepted' to true.
 
 ```
   const handleAcceptRequest = async event => {
@@ -247,6 +247,7 @@ class PropertyListView(APIView):
   }
 
 ```
+* Edits made in the back-end to make the requests work in the front-end: 
 
 ```
 // Nested Serializer added to the Offer Model 
@@ -275,27 +276,30 @@ class NestedOfferSerializer(serializers.ModelSerializer):
 
 * Using Semantic UI React, I found a component that I thought would work well for the requests and I was really happy with the final product. 
 
+![](readme-screenshots/profile-page-four.png)
+
+* Based on whether the offer had been accepted or not, I used a ternary operator to change the styling of the request card:
+
 ```
 <Card.Content extra>
-                            {!offer.is_accepted  ? 
-                              <div className='ui two buttons'>
-                                <Button basic color='green' name={offer.id} onClick={handleAcceptRequest}>
-            Accept
-                                </Button>
-                                <Button basic color='red'>
-            Decline
-                                </Button>
-                              </div>
-                              :
-                              <div className='ui two buttons'>
-                                <Button basic color='green'>
+                            <div>
+                              <>
+                                {offer.is_accepted ? 
+                                  <div className='ui two buttons'>
+                                    <Button basic color='green'>
         Accepted
-                                </Button>
-                                <Button as={Link} to={`/properties/${offer.offered_property.id}`} basic color='green'>
-                            View Property
-                                </Button>
-                              </div>
-                            }
+                                    </Button>
+                                    <Button as={Link} to={`/properties/${offer.requested_property.id}`} basic color='green' >
+                              View Property
+                                    </Button>
+                                  </div>
+                                  :
+                                  <Button basic color='red'>
+        Pending
+                                  </Button>
+                                }
+                              </>
+                            </div>
                           </Card.Content>
 
 ```
