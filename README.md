@@ -274,9 +274,9 @@ class NestedOfferSerializer(serializers.ModelSerializer):
 
 ```
 
-* Using Semantic UI React, I found a component that I thought would work well for the requests and I was really happy with the final product. 
+* Using Semantic UI React, I found a component that I thought would work well for the requests and I was really happy with the final product:
 
-![](readme-screenshots/profile-page-four.png)
+![](readme-screenshots/property-requests-pending.png)
 
 * Based on whether the offer had been accepted or not, I used a ternary operator to change the styling of the request card:
 
