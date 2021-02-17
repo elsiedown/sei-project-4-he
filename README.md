@@ -54,7 +54,7 @@ This Readme will outline the approach we took and the wins and challenges that I
 * Axios
 * CSS5 and SASS
 * Cloudinary
-* Dependencies installed: Mapbox, react-router-dom, react-popup
+* Dependencies installed: Mapbox, react-router-dom, react-popup, react-select, react-moment
 
 **Dev Tools**:
 * Git & GitHub
@@ -184,6 +184,141 @@ class PropertyListView(APIView):
 
 **Front-End**
 
+* Happy with the back-end, and having tested all requests were working using Insomnia, we moved onto building the front-end using a React framework. Happy to work individually on different tasks on the front-end, I was responsible for both the main index page (& map) and the profile page. 
+* I enjoyed the styling of the index page - using flexbox and flex-wrap, I feel the finished look is slick and professional.
+* I decided to add a secondary nav bar on the index pages - in order to add the tabular option between map and list view as well as add in a search bar.  For the search bar, I created a function where the user can search the list of properties by City, Country or continent:
+
+```
+  const filterProperties = (event) => {
+    const results = properties.filter(property => {
+      return property.city.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        property.country.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        property.continent.toLowerCase().includes(event.target.value.toLowerCase())
+    })
+    setFilteredProperties(results)
+  }
+
+```
+
+
+* I started looking at adding in an additional filter option - using a multi-select checkbox to filter the properties by type. However due to time-constraints and happy that the search option was a sufficient option for our MVP, I was not able to finalise the functionality of this.
+
+* I also focussed lots of my time on the different forms - for example the register a property form. An interesting part of this was adding the different property types which best described that property. For this bit, I used react-select. Below is the code snipped for the function I set up to handle the multi-select options chosen on the form.
+
+```
+ const handleMultiSelectChange = (selected, name) => {
+    const selectedItems = selected ? selected.map(item => item.value) : []
+    handleChange({ target: { name, value: selectedItems } })
+  }
+
+
+// Return:
+
+<div className="field">
+            <label className="label">Select Relevant Property Types</label>
+            <div className="control">
+              <Select 
+                options={types}
+                isMulti // boolean implied to be true without = {}
+                name="types"
+                onChange={selected => handleMultiSelectChange(selected, 'types')}
+              />
+            </div>
+          </div>
+
+```
+
+* Another main focus of mine was the profile page. I wanted to mimic a typical social media profile page - showing the number of followers, following and properties. I was happy with the overall styling and finish of the profile page.
+*  In particular, I spent a lot of time working on the house swap request swhich proved to be quite complex, especially the accepting or rejecting of the requests. I did not realise that this would involve setting up another REST ‘put’ request in the back-end in order to ‘update’ the request that had been created.  I also had to add a Nested Serialiser for the offer in order to change the boolean is_accepted to true.
+
+```
+  const handleAcceptRequest = async event => {
+    event.preventDefault()
+    try {
+      console.log(event.target.name)
+      const requestId = event.target.name
+      formdata.is_accepted = true
+      await editPropertyRequest(requestId, formdata)
+      setisAccepted(true)
+      // console.log(data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+```
+
+```
+from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
+from ..models import Offer
+
+class NestedOfferSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Offer
+        fields = ('is_accepted', )
+
+
+// Request:
+
+    def put(self, request, pk):
+      offer_to_update = Offer.objects.get(pk=pk)
+      updated_offer= NestedOfferSerializer(offer_to_update, data=request.data)
+      if updated_offer.is_valid():
+            updated_offer.save()
+            return Response(updated_offer.data, status=status.HTTP_202_ACCEPTED)
+      return Response(updated_offer.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+```
+
+* Using semantic UI Framework, I found a component that I thought would work well for the requests and I was really happy with the final product. 
+
+```
+<Card.Content extra>
+                            {!offer.is_accepted  ? 
+                              <div className='ui two buttons'>
+                                <Button basic color='green' name={offer.id} onClick={handleAcceptRequest}>
+            Accept
+                                </Button>
+                                <Button basic color='red'>
+            Decline
+                                </Button>
+                              </div>
+                              :
+                              <div className='ui two buttons'>
+                                <Button basic color='green'>
+        Accepted
+                                </Button>
+                                <Button as={Link} to={`/properties/${offer.offered_property.id}`} basic color='green'>
+                            View Property
+                                </Button>
+                              </div>
+                            }
+                          </Card.Content>
+
+```
+
+* I enjoyed using the dependency ‘moment’ to convert complex date and time structures in our project, something that was entirely new to me and which worked well.  I used this to convert the dates for the ‘Joined Sharebnb: x Days Ago’ as well as for the dates on the house swap requests. We also used this dependency for the time on the reviews - eg. Posted 2 hours ago.
+
+```
+import moment from 'moment'
+moment().format()
+
+return :
+
+
+ <p>Joined Sharebnb: <small className="text-muted px-1">{moment(profile.date_joined).fromNow()}</small></p>
+
+||
+
+<Card.Description>
+                      Dates: {moment(offer.start_date).format('MMM Do YY')} to {moment(offer.end_date).format('MMM Do YY')}
+                            </Card.Description>
+
+
+```
+
+
 
 
 ## Challenges
@@ -206,7 +341,7 @@ class NestedPropertySerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'property_image', 'city', 'country', 'owner')
 
 ```
-
+* As mentioned in the process section, I was not able to implement the multi select checkbox to filter the properties by type. I was dissapointed not to be able to do this but it is a work in progress.
 
 
 ## Wins
@@ -220,6 +355,7 @@ class NestedPropertySerializer(serializers.ModelSerializer):
 
 ## Future Features
 
+* Work In Progress: Implementing the multi-select checkbox feature on the index page to filter properties by type. 
 * If we had more time, we would have liked to work more on our styling - making the website fully responsive to both smaller screens and mobiles. I would also have liked to add more animations, something I learned about in my previous projects from my team-mates but would be keen to implement myself.
 * I would also have liked to add the functionality where users are notified about new requests (or accepted requests) - eg. adding a notification feature on the navbar.
 * At the current moment, the error messages are also quite generic for our forms so I would like to build these up to a point where they are more specific and inform the user what the exact error is.
