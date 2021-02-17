@@ -15,7 +15,7 @@ This was my fourth and final project on General Assembly’s Software Engineerin
 
 We were given just over a week to build a full-stack application, using a Python Django API and Django REST Framework to serve data from a PostgreSQL database whilst consuming this API with a separate front-end, built with React. 
 
-Our idea was Sharebnb.  Taking inspiration from the outrageous and luxurious properties presented on TV series such as Selling Sunset, whilst combining this with the concept and styling behind websites suchas Airbnb -  Sharebnb is a platform where users can swap houses with other users. Users can advertise their house for swapping, as well as explore and make requests on other houses, add properties to their favourites, and leave reviews on properties they have stayed in.
+Our idea was Sharebnb.  Taking inspiration from the outrageous and luxurious properties presented on TV series such as Selling Sunset, and combining this with the concept and styling behind websites suchas Airbnb -  Sharebnb is a platform where users can swap houses with other users. Users can advertise their house as available to swap, as well as explore and make requests on other houses, add properties to their favourites, and leave reviews on properties they have stayed in.
 
 This Readme will outline the approach we took and the wins and challenges that I encountered along the way.
 
@@ -54,7 +54,7 @@ This Readme will outline the approach we took and the wins and challenges that I
 * Axios
 * CSS5 and SASS
 * Cloudinary
-* Dependencies installed: Mapbox, react-router-dom, react-popup, react-select, react-moment
+* Dependencies installed: Mapbox, react-router-dom, react-popup, react-select, moment.js
 
 **Dev Tools**:
 * Git & GitHub
@@ -75,7 +75,7 @@ This Readme will outline the approach we took and the wins and challenges that I
   * Send requests to other users to swap their property
   * Ability to leave reviews, add to favourites
   * Ability to follow other users
-  * User profile - with panel to manage requests as well as created. Properties
+  * User profile - with panel to manage requests as well as created properties
   * View the other user profile
 
 ## The Site:
@@ -157,7 +157,7 @@ class Review(models.Model):
 
 ```
 
-* We built out the serializers for each model as we went, before moving onto setting up REST Framework - and the different get, put, post, delete requests for each entity.  We also worked don user authentication to limit certain requests to logged-in users and owners of certain properties / reviews:
+* We built out the serializers for each model as we went, before moving onto setting up REST Framework - and the different get, put, post, delete requests for each entity.  We also worked on user authentication to limit certain requests to logged-in users and owners of certain properties / reviews:
 
 ```
 class PropertyListView(APIView):
@@ -185,8 +185,8 @@ class PropertyListView(APIView):
 **Front-End**
 
 * Happy with the back-end, and having tested all requests were working using Insomnia, we moved onto building the front-end using a React framework. Happy to work individually on different tasks on the front-end, I was responsible for both the main index page (& map) and the profile page. 
-* I enjoyed the styling of the index page - using flexbox and flex-wrap, I feel the finished look is slick and professional.
-* I decided to add a secondary nav bar on the index pages - in order to add the tabular option between map and list view as well as add in a search bar.  For the search bar, I created a function where the user can search the list of properties by City, Country or continent:
+* I enjoyed styling the index page -  where I used flexbox for the grid of properties. I feel the finished look is slick and professional. I decided to add a secondary nav bar on the index pages - in order to add the tabular option between map and list view as well as add in a search bar.
+* For the search bar, I created a function where the user can search the list of properties by City, Country or continent:
 
 ```
   const filterProperties = (event) => {
@@ -201,9 +201,9 @@ class PropertyListView(APIView):
 ```
 
 
-* I started looking at adding in an additional filter option - using a multi-select checkbox to filter the properties by type. However due to time-constraints and happy that the search option was a sufficient option for our MVP, I was not able to finalise the functionality of this.
+* I started looking at adding in an additional filter option - using a multi-select checkbox to filter the properties by type. However due to time-constraints and happy that the search option was a sufficient option for our MVP, I was not able to finalise the functionality of this. This is something that I am keen to work on now that I have finished the course.
 
-* I also focussed lots of my time on the different forms - for example the register a property form. An interesting part of this was adding the different property types which best described that property. For this bit, I used react-select. Below is the code snipped for the function I set up to handle the multi-select options chosen on the form.
+* I also built out the different forms - for example the register a property form. An interesting part of this was adding the different property types which best described that property. For this bit, I used react-select. Below is the code snippet for the function I set up to handle the multi-select options chosen on the form.
 
 ```
  const handleMultiSelectChange = (selected, name) => {
@@ -229,7 +229,7 @@ class PropertyListView(APIView):
 ```
 
 * Another main focus of mine was the profile page. I wanted to mimic a typical social media profile page - showing the number of followers, following and properties. I was happy with the overall styling and finish of the profile page.
-*  In particular, I spent a lot of time working on the house swap request swhich proved to be quite complex, especially the accepting or rejecting of the requests. I did not realise that this would involve setting up another REST ‘put’ request in the back-end in order to ‘update’ the request that had been created.  I also had to add a Nested Serialiser for the offer in order to change the boolean is_accepted to true.
+*  In particular, I spent a lot of time working on the house swap requests on the profile page which proved to be quite complex, especially the accepting or rejecting of the requests. I did not realise that this would involve setting up another 'put' request in the back-end in order to ‘update’ the request that had been created.  I also had to add a Nested Serialiser for the offer in order to change the boolean 'is_accepted' to true.
 
 ```
   const handleAcceptRequest = async event => {
@@ -249,6 +249,8 @@ class PropertyListView(APIView):
 ```
 
 ```
+// Nested Serializer added to the Offer Model 
+
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 from ..models import Offer
@@ -271,7 +273,7 @@ class NestedOfferSerializer(serializers.ModelSerializer):
 
 ```
 
-* Using semantic UI Framework, I found a component that I thought would work well for the requests and I was really happy with the final product. 
+* Using Semantic UI React, I found a component that I thought would work well for the requests and I was really happy with the final product. 
 
 ```
 <Card.Content extra>
@@ -298,7 +300,7 @@ class NestedOfferSerializer(serializers.ModelSerializer):
 
 ```
 
-* I enjoyed using the dependency ‘moment’ to convert complex date and time structures in our project, something that was entirely new to me and which worked well.  I used this to convert the dates for the ‘Joined Sharebnb: x Days Ago’ as well as for the dates on the house swap requests. We also used this dependency for the time on the reviews - eg. Posted 2 hours ago.
+* I enjoyed using Moment.js to convert complex date and time structures in our project, something that was entirely new to me and which worked well.  I used this to convert the dates for the ‘Joined Sharebnb: x Days Ago’ as well as for the dates on the house swap requests. We also used this dependency for the time on the reviews - eg. Posted 2 hours ago.
 
 ```
 import moment from 'moment'
@@ -323,7 +325,7 @@ return :
 
 ## Challenges
 
-* A main challenge for me was getting my head around the user of serializers in the back-end and using these in a way so that I had the correct output in the front-end.  Whilst I was setting up the ‘house swap requests’ in the front-end I kept coming across instances where I was not receiving the correct data in the requests (eg. The details of the owner of the request were not displaying). I then had to go back to the back-end and alter the serializers, adding in nested serializers in a few cases. In future, I would clearly think out what data would be attached to each model and what serializers were necessary so that the correct information would be returned and to avoid having to alter the back-end later down the line.
+* A main challenge for me was getting my head around the use of serializers in the back-end and using these in a way so that I had the correct output in the front-end.  Whilst I was setting up the ‘house swap requests’ in the front-end I kept coming across instances where I was not receiving the correct data in the requests (eg. The details of the owner of the request were not displaying). I then had to go back to the back-end and alter the serializers, adding in nested serializers in a few cases. In future, I would clearly think out what data would be attached to each model and what serializers were necessary so that the correct information would be returned and to avoid having to alter the back-end later down the line.
 
 ```
 from rest_framework import serializers
@@ -341,17 +343,17 @@ class NestedPropertySerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'property_image', 'city', 'country', 'owner')
 
 ```
-* As mentioned in the process section, I was not able to implement the multi select checkbox to filter the properties by type. I was dissapointed not to be able to do this but it is a work in progress.
+* As mentioned in the process section, I was not able to implement the multi select checkbox to filter the properties by type. I was dissapointed not to be able to do this but as mentioned, it is a work in progress.
 
 
 ## Wins
 * Considering we had only been learning Python and Django for just a week, I was impressed with the fact that we were able to build a full-stack app which was based in Python and Django. Overall, we were really happy with the amount of functionality that we achieved and how our site looked.
-* I was happy with how I carried forward my understanding of how relationships were established from my previous projects, and adapted this knowledge for the Python and Django back-end. I was pretty happy with how the 'house swap requests' worked both in the back-end and front-end.
+* I was happy with how I carried forward my understanding of how relationships are established from my previous projects, and adapted this knowledge for the Python and Django back-end. I was pretty happy with how the 'house swap requests' worked both in the back-end and front-end.
 
 ## What I Learned
 * As this was my first project using Python and Django, I learned a huge amount. It was interesting to translate my knowledge and understanding of JavaScript and put into practice everything we had learned over the duration of the course in general. 
 * I enjoyed using Django - it was interesting to compare how it worked to setting up an API with Express. The error handling was way easier to set up and I enjoyed learning the benefits of using different frameworks.
-* It was a great chance to further my pair-programming skills and I loved working a pair. I took what I had learned from the previous group projects (both failures and successes) and applied those learnings to ths project, which I believe resulted in a relatively smooth and successful project.
+* It was a great chance to further my pair-programming skills and I loved working in a pair. I took what I had learned from the previous group projects (both failures and successes) and applied those learnings to ths project, which I believe resulted in a relatively smooth and successful project.
 
 ## Future Features
 
